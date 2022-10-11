@@ -1,6 +1,13 @@
 # CZI-Issue-29
 
-long text description
+
+intro paragraph 
+
+GPU accelerated non local means (NLM) denoising plugin for napari (WIP)
+
+currently only supports single-channel 2D or 3D images
+requires a OpenCL capable GPU
+
 
 some screenshot
 
