@@ -19,9 +19,9 @@ napari_cfg_scraped_text = str(napari_cfg_scraped_text)
 napari_cfg_scraped_text = strip_tags(napari_cfg_scraped_text)
 print(napari_cfg_scraped_text)
 
-NAPARI_CFG_SUMMARY_SENTENCE_PATTERN = '(?:\sdescription\:\s)(.*?)(?=\s\n)'
-NAPARI_CFG_SOURCE_CODE_PATTERN = '(?:Source\sCode\:\s)(.*?)(?=\s)'
-NAPARI_CFG_AUTHOR_PATTERN = '(?:author\:\s)(.*?)(?=\s\n)'
+NAPARI_CFG_SUMMARY_SENTENCE_PATTERN = '(?:summary\:\s)(.*?)(?=\s\n)'
+NAPARI_CFG_SOURCE_CODE_PATTERN = '(?:Project\sSite\:\s)(.*?)(?=\s)'
+NAPARI_CFG_AUTHOR_PATTERN = '(?:\-\sname\:\s)(.*?)(?=\s\n)'
 NAPARI_CFG_BUG_TRACKER_PATTERN = '(?:Bug\sTracker\:\s)(.*?)(?=\s)'
 NAPARI_CFG_REPORT_ISSUES_PATTERN = '(?:Report\sIssues\:\s)(.*?)(?=\s)'
 NAPARI_CFG_USER_SUPPORT_PATTERN = '(?:User\sSupport\:\s)(.*?)(?=\s)'
@@ -46,7 +46,7 @@ else:
 print(summary_sentence_check)
 
 print('\n Source code link ')
-if(bool(summary_sentence_data)):
+if(bool(source_code_data)):
     source_code_check = True
 else:
     source_code_check = False
