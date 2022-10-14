@@ -109,22 +109,4 @@ console.print(table, justify="center")
 
 
 
-# display_name
 
-# summary_sentence
-
-# intro_paragraph
-
-# intro_video
-
-# intro_screenshot
-
-# usage_overview
-
-# source_code_link
-
-# support_channel_link
-
-# submit_issues_link
-
-# author_names
