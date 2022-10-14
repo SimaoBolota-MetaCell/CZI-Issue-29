@@ -7,9 +7,6 @@ some text for intro paragraph
 
 
 
-https://user-images.githubusercontent.com/99416933/194854522-c1c39d1b-a531-46d5-996c-b835fde8e1ae.mov
-
-
 ## Installation
 
 installation text
