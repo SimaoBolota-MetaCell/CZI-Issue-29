@@ -8,6 +8,7 @@ from collect_data_checks.check_meta_data_from_cfg import *
 from collect_data_checks.check_meta_data_from_napari_config_yml import *
 from collect_data_checks.check_meta_data_from_napari_descriptionmd import *
 from collect_data_checks.check_meta_data_from_npe2config import *
+from collect_data_checks.check_citation import *
 
 repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
 
@@ -99,6 +100,13 @@ def create_checklist(repo):
         intro_paragraph_check = non_checked_element
         intro_paragraph_column_style = unchecked_style
 
+    if(check_for_citation(repo , 'CITATION.CFF')):
+        citation_check = checked_element
+        citation_column_style = checked_style
+    else:
+        citation_check = non_checked_element
+        citation_column_style = unchecked_style
+
         
     console = Console()
 
@@ -114,6 +122,7 @@ def create_checklist(repo):
     console.print('- Support Channel Link ', support_channel_check, style = support_channel_column_style)
     console.print('- Issue Submission Link ', issue_submission_check, style = issue_submission_column_style)
     console.print('- Display Name ', display_name_check, style = display_name_column_style)
+    console.print('- Citation ', citation_check, style = citation_column_style)
     
 
     return 
