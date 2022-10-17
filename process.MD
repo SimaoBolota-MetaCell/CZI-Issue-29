@@ -80,6 +80,6 @@ By adding a screenshot in the description.md and a CITATION.CFF file
 **Questions:**
 
 - Should I add the CITATION.CFF to the checklist?
-- The npe2 config file is the napari.yml. Does it only need to have the word napari for example env-napari-segment.yml ? or is it specifically napari.yml ?
+- The npe2 config file is the napari.yml. Does it only need to have the word napari for example env-napari-segment.yml or naparij.yaml ? or is it specifically napari.yml ?
 - If there's a metadata field found but in the fallback file, should I suggest the main one? or only if nothing is found?
 
