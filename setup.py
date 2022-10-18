@@ -5,7 +5,7 @@ setup(
         'napari.plugin': [
             'naparij = napari_j',
         ],
-	 'napari.manifest': [
+	'napari.manifest': [
 	    'naparij = napari.yaml',
         ], 
     },
