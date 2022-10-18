@@ -1,5 +1,7 @@
 from .githubInfo import *
 from .htmlScraper import *
+from rich import print
+from rich.console import Console
 
 # Metadata in the config file:
 
@@ -40,6 +42,8 @@ repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
 
         
 def cfg_soup(path):
+    console = Console()
+    console.print('Checking setup.cfg file...', style = 'yellow')
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
     SET_UP_CFG_LINK = git_repo_link + '/blob/%s/setup.cfg'%(git_base_branch)
 
@@ -59,7 +63,7 @@ def name_metadata_cfgfile(scraped_text):
    
     return display_name_check
 
-p, l = cfg_soup(repo_path)
+# p, l = cfg_soup(repo_path)
 # print(name_metadata_cfgfile(p))
 
 def summary_metadata_cfgfile(scraped_text):
@@ -119,6 +123,8 @@ def usersupport_metadata_cfgfile(scraped_text):
 
 
 def long_description_file(scraped_text, repo_link):
+    console = Console()
+    console.print('Checking setup.cfg long_description associated file....', style = 'yellow')
 
     long_description_data = re.findall(PYCFG_LONG_DESCRIPTION_PATTERN, scraped_text, flags=re.DOTALL)
 
@@ -135,7 +141,7 @@ def long_description_file(scraped_text, repo_link):
 
     return link_data_soup
 
-s = long_description_file(p,l)
+# s = long_description_file(p,l)
 
 def video_metadata_cfgfile(description_file_soup):
     video_data = description_file_soup.find_all("video")
@@ -150,7 +156,7 @@ def screenshot_metadata_cfgfile(description_file_soup):
     intro_screenshot_check = False
     screenshot_data = description_file_soup.find_all("img")
     for data in screenshot_data:
-        print(data)
+        # print(data)
         data = str(data)
         image_maxwidth_percentage = re.findall(IMAGE_STYLE_PATTERN, data, flags=re.DOTALL)
         image_width = re.findall(IMAGE_WIDTH_PATTERN, data, flags=re.DOTALL)

@@ -1,5 +1,7 @@
 from .githubInfo import *
 from .htmlScraper import *
+from rich import print
+from rich.console import Console
 
 
 repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
@@ -16,6 +18,8 @@ NAPARI_CFG_USER_SUPPORT_PATTERN = '(?:User\sSupport\:\s)(.*?)(?=\s)'
 
         
 def napari_cfgfile_soup(path):
+    console = Console()
+    console.print('Checking napari-hub/config.yml file...', style = 'yellow')
     
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
 
@@ -29,7 +33,7 @@ def napari_cfgfile_soup(path):
 
     return napari_cfg_scraped_text
 
-p = napari_cfgfile_soup(repo_path)
+# p = napari_cfgfile_soup(repo_path)
 
 
 
@@ -40,9 +44,9 @@ def summary_metadata_naparicfg(scraped_text):
     if(bool(summary_sentence_data)):
         summary_sentence_check = True
     return summary_sentence_check
-print('Summary Sentence found?')
-print(summary_metadata_naparicfg(p))
-print('\n')
+# print('Summary Sentence found?')
+# print(summary_metadata_naparicfg(p))
+# print('\n')
 
 
 def sourcecode_metadata_naparicfg(scraped_text):
@@ -53,9 +57,9 @@ def sourcecode_metadata_naparicfg(scraped_text):
         source_code_check = True
     return source_code_check
 
-print('Source Code link found?')
-print(sourcecode_metadata_naparicfg(p))
-print('\n')
+# print('Source Code link found?')
+# print(sourcecode_metadata_naparicfg(p))
+# print('\n')
 
 def author_metadata_naparicfg(scraped_text):
     author_data = re.findall(NAPARI_CFG_AUTHOR_PATTERN, scraped_text, flags=re.DOTALL)
@@ -65,9 +69,9 @@ def author_metadata_naparicfg(scraped_text):
         author_check = True
     return author_check
 
-print('Author found?')
-print(author_metadata_naparicfg(p))
-print('\n')
+# print('Author found?')
+# print(author_metadata_naparicfg(p))
+# print('\n')
 
 def usersupport_metadata_naparicfg(scraped_text):
     user_support_data = re.findall(NAPARI_CFG_USER_SUPPORT_PATTERN, scraped_text, flags=re.DOTALL)
@@ -77,9 +81,9 @@ def usersupport_metadata_naparicfg(scraped_text):
         user_support_check = True
     return user_support_check
 
-print('User Support link found?')
-print(usersupport_metadata_naparicfg(p))
-print('\n')
+# print('User Support link found?')
+# print(usersupport_metadata_naparicfg(p))
+# print('\n')
 
 def bugtracker_metadata_naparicfg(scraped_text):
 
@@ -92,7 +96,7 @@ def bugtracker_metadata_naparicfg(scraped_text):
     if(bool(bug_tracker_data)):
         bug_tracker_check = True    
     return bug_tracker_check
-print('Bug Tracker link found?')
-print(bugtracker_metadata_naparicfg(p))
-print('\n')
+# print('Bug Tracker link found?')
+# print(bugtracker_metadata_naparicfg(p))
+# print('\n')
 

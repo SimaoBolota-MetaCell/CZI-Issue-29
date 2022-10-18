@@ -1,10 +1,13 @@
 from .htmlScraper import *
 from .githubInfo import *
+from rich import print
+from rich.console import Console
 
 def description_soup(path):
-    
+    console = Console()
+    console.print('Checking napari-hub/description.md file...', style = 'yellow')
 
-    git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
+    git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
     NAPARI_DESCRIPTION_LINK = git_repo_link + '/blob/%s/.napari-hub/DESCRIPTION.md'%(git_base_branch)
 
     return get_html(NAPARI_DESCRIPTION_LINK)
@@ -62,28 +65,28 @@ def intro_metadata_descriptionfile(soup):
     return(intro_paragraph_check)
 
 
-repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
-print('\n')
+# repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
+# print('\n')
 
-x_soup = description_soup(repo_path)
-y = screenshot_metadata_descriptionfile(x_soup)
-print('Screenshot found?')
-print(y)
-print('\n')
+# x_soup = description_soup(repo_path)
+# y = screenshot_metadata_descriptionfile(x_soup)
+# print('Screenshot found?')
+# print(y)
+# print('\n')
 
-z = video_metadata_descriptionfile(x_soup)
-print('Video found?')
-print(z)
-print('\n')
-
-
-c = usage_metadata_descriptionfile(x_soup)
-print('Usage section found?')
-print(c)
-print('\n')
+# z = video_metadata_descriptionfile(x_soup)
+# print('Video found?')
+# print(z)
+# print('\n')
 
 
-d = intro_metadata_descriptionfile(x_soup)
-print('Intro paragraph found?')
-print(d)
-print('\n')
+# c = usage_metadata_descriptionfile(x_soup)
+# print('Usage section found?')
+# print(c)
+# print('\n')
+
+
+# d = intro_metadata_descriptionfile(x_soup)
+# print('Intro paragraph found?')
+# print(d)
+# print('\n')

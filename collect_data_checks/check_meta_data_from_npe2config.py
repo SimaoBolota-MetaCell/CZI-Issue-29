@@ -1,6 +1,7 @@
 from .githubInfo import *
 from .htmlScraper import *
-
+from rich import print
+from rich.console import Console
 
 repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
 
@@ -12,26 +13,6 @@ NPE2_SETUPPY_MANIFEST_FIELD_PATTERN = '(?=\'napari.manifest\')(.*?)(?:\.yaml\')'
 NPE2_SETUPPY_FILE_PATTERN = '(?:\=\s)(.*?)(?=\"])'
 NPE2_PYPROJECT_MANIFEST_PATTERN = '(?=napari.manifest\")(.*?)(?:\.yaml)'
 NPE2_PYPROJECT_FILE_PATTERN = '(?:\:)(.*?)(?=\'\])'
-
-
-def name_metadata_npe2file(path, npe2file):
-    git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
-
-    NAPARI_YAML_LINK = git_repo_link + '/blob/%s/'%(git_base_branch)
-    NAPARI_YAML_LINK = NAPARI_YAML_LINK + '%s'%(npe2file)
-
-    napari_npe2_soup = get_html(NAPARI_YAML_LINK)   
-    npe2_scraped_text = napari_npe2_soup.find_all("table", {'class': 'highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file'})
-    npe2_scraped_text = str(npe2_scraped_text)
-    npe2_scraped_text = strip_tags(npe2_scraped_text)
-
-    display_name_data = re.findall(NPE2_DISPLAY_NAME_PATTERN, npe2_scraped_text, flags=re.DOTALL)
-    return bool(display_name_data)
-
-# x = name_metadata_npe2file(repo_path)
-# print('\n')
-# print('Display name found?')
-# print(x)
 
 
 
@@ -51,6 +32,8 @@ def check_for_file( path: str, name: str) -> bool:
 
 
 def npe2_file_location(repo_path):
+    console = Console()
+    console.print('Checking npe2 file location...', style = 'yellow')
 
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
 
@@ -71,8 +54,8 @@ def npe2_file_location(repo_path):
         npe2_file = npe2_file[0] + '.yaml'
         if(bool(npe2_file)):
             napari_manifest_field = True
-        print('1')
-        print(npe2_file)
+        # print('1')
+        # print(npe2_file)
 
         
 
@@ -88,8 +71,8 @@ def npe2_file_location(repo_path):
         npe2_file = npe2_file[0] + '.yaml'
         if(bool(npe2_file)):
             napari_manifest_field = True
-        print('2')
-        print(npe2_file)
+        # print('2')
+        # print(npe2_file)
 
     elif(check_for_file( repo_path, 'pyproject.toml') and not bool(napari_manifest_field)):
         NAPARI_NPE2_LINK = git_repo_link + '/blob/%s/pyproject.toml'%(git_base_branch)
@@ -101,10 +84,28 @@ def npe2_file_location(repo_path):
         npe2_file = str(npe2_file)
         npe2_file = re.findall(NPE2_SETUPCFG_FILE_PATTERN, npe2_file, flags=re.DOTALL)
         npe2_file = npe2_file[0] + '.yaml'
-        print('3')
-        print(npe2_file)
+        # print('3')
+        # print(npe2_file)
 
     return npe2_file
+
+
+def name_metadata_npe2file(path, npe2file):
+    console = Console()
+    console.print('Checking npe2 data in %s file...'%(npe2file), style = 'yellow')
+    git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
+
+    NAPARI_YAML_LINK = git_repo_link + '/blob/%s/'%(git_base_branch)
+    NAPARI_YAML_LINK = NAPARI_YAML_LINK + '%s'%(npe2file)
+
+    napari_npe2_soup = get_html(NAPARI_YAML_LINK)   
+    npe2_scraped_text = napari_npe2_soup.find_all("table", {'class': 'highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file'})
+    npe2_scraped_text = str(npe2_scraped_text)
+    npe2_scraped_text = strip_tags(npe2_scraped_text)
+
+    display_name_data = re.findall(NPE2_DISPLAY_NAME_PATTERN, npe2_scraped_text, flags=re.DOTALL)
+    return bool(display_name_data)
+
 
 # npe2_napari_file = npe2_file_location(repo_path)
 # print(name_metadata_npe2file(repo_path, npe2_napari_file))
