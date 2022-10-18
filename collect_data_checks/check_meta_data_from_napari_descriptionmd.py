@@ -1,7 +1,9 @@
-from .githubInfo import *
 from .htmlScraper import *
+from .githubInfo import *
 
 def description_soup(path):
+    
+
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
     NAPARI_DESCRIPTION_LINK = git_repo_link + '/blob/%s/.napari-hub/DESCRIPTION.md'%(git_base_branch)
 
@@ -61,19 +63,27 @@ def intro_metadata_descriptionfile(soup):
 
 
 repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
+print('\n')
 
 x_soup = description_soup(repo_path)
 y = screenshot_metadata_descriptionfile(x_soup)
-# print(y)
-
+print('Screenshot found?')
+print(y)
+print('\n')
 
 z = video_metadata_descriptionfile(x_soup)
-# print(z)
+print('Video found?')
+print(z)
+print('\n')
 
 
 c = usage_metadata_descriptionfile(x_soup)
-# print(c)
+print('Usage section found?')
+print(c)
+print('\n')
 
 
 d = intro_metadata_descriptionfile(x_soup)
-# print(d)
+print('Intro paragraph found?')
+print(d)
+print('\n')

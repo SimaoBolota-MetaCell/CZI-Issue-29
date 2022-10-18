@@ -27,9 +27,10 @@ def create_checklist(repo):
     napari_cfg_scraped_text = napari_cfgfile_soup(repo)
 
     description_scraped_text = description_soup(repo)
+    npe2_napari_file = npe2_file_location(repo)
+
     
-    
-    if (name_metadata_cfgfile(cfg_scraped_text)) or (name_metadata_npe2file(repo)):
+    if (name_metadata_cfgfile(cfg_scraped_text)) or (name_metadata_npe2file(repo,npe2_napari_file)):
         display_name_check = checked_element
         display_name_column_style = checked_style
     else:
@@ -72,19 +73,13 @@ def create_checklist(repo):
         support_channel_check = non_checked_element
         support_channel_column_style = unchecked_style
 
-    if (video_metadata_cfgfile(longdescription_scraped_text)) or (video_metadata_descriptionfile(description_scraped_text)):
-        intro_video_check = checked_element
-        intro_video_column_style = checked_style
+    if (video_metadata_cfgfile(longdescription_scraped_text)) or (video_metadata_descriptionfile(description_scraped_text)or screenshot_metadata_descriptionfile(description_scraped_text)) or (screenshot_metadata_cfgfile(longdescription_scraped_text)):
+        intro_video_or_screenshot_check = checked_element
+        intro_video_or_screenshot_column_style = checked_style
     else:
-        intro_video_check = non_checked_element
-        intro_video_column_style = unchecked_style
+        intro_video_or_screenshot_check = non_checked_element
+        intro_video_or_screenshot_column_style = unchecked_style
 
-    if (screenshot_metadata_descriptionfile(description_scraped_text)) or (screenshot_metadata_cfgfile(longdescription_scraped_text)):
-        intro_screenshot_check = checked_element
-        intro_screenshot_column_style = checked_style
-    else:
-        intro_screenshot_check = non_checked_element
-        intro_screenshot_column_style = unchecked_style
 
     if (usage_metadata_cfgfile(longdescription_scraped_text)) or (usage_metadata_descriptionfile(description_scraped_text)):
         usage_check = checked_element
@@ -109,21 +104,19 @@ def create_checklist(repo):
 
         
     console = Console()
-
-    console.print("===Napari Plugin - Documentation Checklist===\n", style = 'blue')
-
+    console.print("\n[ Napari Plugin - Documentation Checklist ]\n", style = 'blue')
     console.print('- Author name ', author_name_check, style = author_name_column_style)
     console.print('- Summary Sentence ', summary_sentence_check, style = summary_sentence_column_style)
     console.print('- Intro Paragraph ', intro_paragraph_check, style = intro_paragraph_column_style)
-    console.print('- Intro Video ',intro_video_check, style = intro_video_column_style)
-    console.print('- Intro Screenshot ', intro_screenshot_check, style = intro_screenshot_column_style)
+    console.print('- Intro Screenshot/Video ',intro_video_or_screenshot_check, style = intro_video_or_screenshot_column_style)
     console.print('- Usage Overview ', usage_check, style = usage_column_style)
     console.print('- Source Code Link ',sc_link_check, style = sc_link_column_style)
     console.print('- Support Channel Link ', support_channel_check, style = support_channel_column_style)
     console.print('- Issue Submission Link ', issue_submission_check, style = issue_submission_column_style)
     console.print('- Display Name ', display_name_check, style = display_name_column_style)
+    console.print('\n[ OPTIONAL ] ')
     console.print('- Citation ', citation_check, style = citation_column_style)
-    
+    console.print('\n')
 
     return 
 

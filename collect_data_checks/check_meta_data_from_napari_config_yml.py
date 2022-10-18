@@ -40,8 +40,9 @@ def summary_metadata_naparicfg(scraped_text):
     if(bool(summary_sentence_data)):
         summary_sentence_check = True
     return summary_sentence_check
-
-# print(summary_metadata_naparicfg(p))
+print('Summary Sentence found?')
+print(summary_metadata_naparicfg(p))
+print('\n')
 
 
 def sourcecode_metadata_naparicfg(scraped_text):
@@ -52,7 +53,9 @@ def sourcecode_metadata_naparicfg(scraped_text):
         source_code_check = True
     return source_code_check
 
-# print(sourcecode_metadata_naparicfg(p))
+print('Source Code link found?')
+print(sourcecode_metadata_naparicfg(p))
+print('\n')
 
 def author_metadata_naparicfg(scraped_text):
     author_data = re.findall(NAPARI_CFG_AUTHOR_PATTERN, scraped_text, flags=re.DOTALL)
@@ -62,7 +65,9 @@ def author_metadata_naparicfg(scraped_text):
         author_check = True
     return author_check
 
-# print(author_metadata_naparicfg(p))
+print('Author found?')
+print(author_metadata_naparicfg(p))
+print('\n')
 
 def usersupport_metadata_naparicfg(scraped_text):
     user_support_data = re.findall(NAPARI_CFG_USER_SUPPORT_PATTERN, scraped_text, flags=re.DOTALL)
@@ -72,7 +77,9 @@ def usersupport_metadata_naparicfg(scraped_text):
         user_support_check = True
     return user_support_check
 
-# print(usersupport_metadata_naparicfg(p))
+print('User Support link found?')
+print(usersupport_metadata_naparicfg(p))
+print('\n')
 
 def bugtracker_metadata_naparicfg(scraped_text):
 
@@ -85,5 +92,7 @@ def bugtracker_metadata_naparicfg(scraped_text):
     if(bool(bug_tracker_data)):
         bug_tracker_check = True    
     return bug_tracker_check
-# print(bugtracker_metadata_naparicfg(p))
+print('Bug Tracker link found?')
+print(bugtracker_metadata_naparicfg(p))
+print('\n')
 

@@ -18,20 +18,6 @@ from .htmlScraper import *
 repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
 
 
-# git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
-
-
-# SET_UP_CFG_LINK = git_repo_link + '/blob/%s/setup.cfg'%(git_base_branch)
-
-
-
-# soup = get_html(SET_UP_CFG_LINK)
-
-# setup_cfg_scraped_text = soup.find_all("table", {'class': 'highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file'})
-# setup_cfg_scraped_text = str(setup_cfg_scraped_text)
-# setup_cfg_scraped_text = strip_tags(setup_cfg_scraped_text)
-
-
 PYCFG_DISPLAY_NAME_PATTERN = '(?:name\s\=\s)(.*?)(?=\s\n)'
 PYCFG_SUMMARY_SENTENCE_PATTERN = '(?:\sdescription\s\=\s)(.*?)(?=\s\n)'
 PYCFG_LONG_DESCRIPTION_PATTERN = '(?:long_description\s\=\s)(.*?)(?=\s\n)'
@@ -43,14 +29,10 @@ PYCFG_USER_SUPPORT_PATTERN = '(?:User\sSupport\s\=\s)(.*?)(?=\s)'
 
 FILE_IN_LONG_DESCRIPTION_PATTERN = '(?:file\:\s)(.*?)(?=\s)'
 
+IMAGE_STYLE_PATTERN = '(?:max-width\:\s)(.*?)(?=\%)'
+IMAGE_WIDTH_PATTERN ='(?:width\=\")(.*?)(?=\")'
 
-
-
-
-
-# print('\n Intro prarapgraph/video/screenshot/Usage location:')
-# print(long_description_data)
-# print('checking long description file...')
+SHIELDS_IO_PATTERN = '(?:img.shields.io)'
 
 
 repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
@@ -167,8 +149,24 @@ def video_metadata_cfgfile(description_file_soup):
 def screenshot_metadata_cfgfile(description_file_soup):
     intro_screenshot_check = False
     screenshot_data = description_file_soup.find_all("img")
-    if len(screenshot_data)>0:
-            intro_screenshot_check = True
+    for data in screenshot_data:
+        print(data)
+        data = str(data)
+        image_maxwidth_percentage = re.findall(IMAGE_STYLE_PATTERN, data, flags=re.DOTALL)
+        image_width = re.findall(IMAGE_WIDTH_PATTERN, data, flags=re.DOTALL)
+        shields_io_image = re.findall(SHIELDS_IO_PATTERN, data, flags=re.DOTALL)
+        if(bool(image_maxwidth_percentage)and not bool(shields_io_image)):
+            for i in image_maxwidth_percentage:
+                percentage_number = int(str(i))
+                if percentage_number > 30:
+                    intro_screenshot_check = True
+        
+        if(bool(image_width) and not bool(shields_io_image)):
+            for i in image_width:
+                width_number = int(str(i))
+                if width_number > 200 :
+                    intro_screenshot_check = True
+           
     return intro_screenshot_check
 
 # print(screenshot_metadata_cfgfile(s))
