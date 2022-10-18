@@ -5,6 +5,9 @@ setup(
         'napari.plugin': [
             'naparij = napari_j',
         ],
+	 'napari.manifest': [
+	    'naparij = napari.yaml',
+        ], 
     },
     
     classifiers=[
