@@ -17,7 +17,7 @@ from rich.console import Console
 # - link to bug tracker (fallback)
 
 
-repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
+# repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
 
 
 PYCFG_DISPLAY_NAME_PATTERN = '(?:name\s\=\s)(.*?)(?=\s\n)'
@@ -44,7 +44,7 @@ repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
 def cfg_soup(path):
     console = Console()
     console.print('Checking setup.cfg file...', style = 'yellow')
-    git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
+    git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
     SET_UP_CFG_LINK = git_repo_link + '/blob/%s/setup.cfg'%(git_base_branch)
 
     soup = get_html(SET_UP_CFG_LINK)
@@ -57,11 +57,11 @@ def cfg_soup(path):
 
 def name_metadata_cfgfile(scraped_text):
     display_name_data = re.findall(PYCFG_DISPLAY_NAME_PATTERN, scraped_text, flags=re.DOTALL)
-    display_name_check = False
+    display_name_value = False
     if(bool(display_name_data)):
-        display_name_check = True
+        display_name_value = True
    
-    return display_name_check
+    return display_name_value
 
 # p, l = cfg_soup(repo_path)
 # print(name_metadata_cfgfile(p))
@@ -161,17 +161,20 @@ def screenshot_metadata_cfgfile(description_file_soup):
         image_maxwidth_percentage = re.findall(IMAGE_STYLE_PATTERN, data, flags=re.DOTALL)
         image_width = re.findall(IMAGE_WIDTH_PATTERN, data, flags=re.DOTALL)
         shields_io_image = re.findall(SHIELDS_IO_PATTERN, data, flags=re.DOTALL)
-        if(bool(image_maxwidth_percentage)and not bool(shields_io_image)):
-            for i in image_maxwidth_percentage:
-                percentage_number = int(str(i))
-                if percentage_number > 30:
-                    intro_screenshot_check = True
         
         if(bool(image_width) and not bool(shields_io_image)):
             for i in image_width:
                 width_number = int(str(i))
                 if width_number > 200 :
                     intro_screenshot_check = True
+
+        if not bool(image_width) and (bool(image_maxwidth_percentage)and not bool(shields_io_image)):
+            for i in image_maxwidth_percentage:
+                percentage_number = int(str(i))
+                if percentage_number > 30:
+                    intro_screenshot_check = True
+        
+        
            
     return intro_screenshot_check
 

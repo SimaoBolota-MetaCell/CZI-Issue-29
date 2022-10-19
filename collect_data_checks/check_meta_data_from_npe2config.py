@@ -51,10 +51,9 @@ def npe2_file_location(repo_path):
         npe2_file = re.findall(NPE2_SETUPPY_MANIFEST_FIELD_PATTERN, npe2_file, flags=re.DOTALL)
         npe2_file = str(npe2_file)
         npe2_file = re.findall(NPE2_SETUPPY_FILE_PATTERN, npe2_file, flags=re.DOTALL)
-        npe2_file = npe2_file[0] + '.yaml'
         if(bool(npe2_file)):
+            npe2_file = npe2_file[0] + '.yaml'
             napari_manifest_field = True
-        # print('1')
         # print(npe2_file)
 
         
@@ -68,13 +67,12 @@ def npe2_file_location(repo_path):
         npe2_file = re.findall(NPE2_SETUPCFG_MANIFEST_PATTERN, npe2_napari_manifest, flags=re.DOTALL)
         npe2_file = str(npe2_file)
         npe2_file = re.findall(NPE2_SETUPCFG_FILE_PATTERN, npe2_file, flags=re.DOTALL)
-        npe2_file = npe2_file[0] + '.yaml'
         if(bool(npe2_file)):
+            npe2_file = npe2_file[0] + '.yaml'
             napari_manifest_field = True
-        # print('2')
         # print(npe2_file)
 
-    elif(check_for_file( repo_path, 'pyproject.toml') and not bool(napari_manifest_field)):
+    if(check_for_file( repo_path, 'pyproject.toml') and not bool(napari_manifest_field)):
         NAPARI_NPE2_LINK = git_repo_link + '/blob/%s/pyproject.toml'%(git_base_branch)
         napari_npe2_soup = get_html(NAPARI_NPE2_LINK)   
         npe2_napari_manifest = napari_npe2_soup.find_all("table", {'class': 'highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file'})
@@ -83,8 +81,8 @@ def npe2_file_location(repo_path):
         npe2_file = re.findall(NPE2_PYPROJECT_MANIFEST_PATTERN, npe2_napari_manifest, flags=re.DOTALL)
         npe2_file = str(npe2_file)
         npe2_file = re.findall(NPE2_SETUPCFG_FILE_PATTERN, npe2_file, flags=re.DOTALL)
-        npe2_file = npe2_file[0] + '.yaml'
-        # print('3')
+        if(bool(npe2_file)):
+            npe2_file = npe2_file[0] + '.yaml'
         # print(npe2_file)
 
     return npe2_file
@@ -92,7 +90,7 @@ def npe2_file_location(repo_path):
 
 def name_metadata_npe2file(path, npe2file):
     console = Console()
-    console.print('Checking npe2 data in %s file...'%(npe2file), style = 'yellow')
+
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
 
     NAPARI_YAML_LINK = git_repo_link + '/blob/%s/'%(git_base_branch)
@@ -104,6 +102,8 @@ def name_metadata_npe2file(path, npe2file):
     npe2_scraped_text = strip_tags(npe2_scraped_text)
 
     display_name_data = re.findall(NPE2_DISPLAY_NAME_PATTERN, npe2_scraped_text, flags=re.DOTALL)
+    if(bool(display_name_data)):
+        console.print('Checking npe2 data in %s file...'%(npe2file), style = 'yellow')
     return bool(display_name_data)
 
 
