@@ -89,46 +89,77 @@ def create_checklist(repo):
         citation_check = checked_element
         citation_column_style = checked_style
    
-        
+    
     console = Console()
     console.print("\n[ Napari Plugin - Documentation Checklist ]\n", style = 'blue')
-    console.print('- Author name ', author_name_check, style = author_name_column_style)
-    console.print('- Summary Sentence ', summary_sentence_check, style = summary_sentence_column_style)
-    console.print('- Intro Paragraph ', intro_paragraph_check, style = intro_paragraph_column_style)
-    console.print('- Intro Screenshot/Video ',intro_video_or_screenshot_check, style = intro_video_or_screenshot_column_style)
-    console.print('- Usage Overview ', usage_check, style = usage_column_style)
-    console.print('- Source Code Link ',sc_link_check, style = sc_link_column_style)
-    console.print('- Support Channel Link ', support_channel_check, style = support_channel_column_style)
-    console.print('- Issue Submission Link ', issue_submission_check, style = issue_submission_column_style)
-    console.print('- Display Name ', display_name_check, style = display_name_column_style)
+    console.print(author_name_check + ' Author name ', style = author_name_column_style)
+    console.print(summary_sentence_check + ' Summary Sentence ', style = summary_sentence_column_style)
+    console.print(intro_paragraph_check + ' Intro Paragraph ', style = intro_paragraph_column_style)
+    console.print(intro_video_or_screenshot_check + ' Intro Screenshot/Video ',style = intro_video_or_screenshot_column_style)
+    console.print(usage_check + ' Usage Overview ',  style = usage_column_style)
+    console.print(sc_link_check + ' Source Code Link ', style = sc_link_column_style)
+    console.print(support_channel_check + ' Support Channel Link ', style = support_channel_column_style)
+    console.print(issue_submission_check + ' Issue Submission Link ', style = issue_submission_column_style)
+    console.print(display_name_check + ' Display Name ', style = display_name_column_style)
     console.print('\n[ OPTIONAL ] ')
-    console.print('- Citation ', citation_check, style = citation_column_style)
+    console.print(citation_check + ' Citation ', style = citation_column_style)
     console.print('\n')
 
 
-    FALLBACK_TEXT = ' information was found only in the fallback file'
+    FALLBACK_TEXT = ' found only in the fallback file'
     NOT_FOUND_TEXT = ' not found'
 
+    display_name_fallback = False
+    usage_fallback = False
+    summary_sentence_fallback = False
+    source_code_link_fallback = False
+    bug_tracker_link_fallback = False
+    user_support_link_fallback = False
+    screenshot_or_video_fallback = False
+    intro_paragraph_fallback = False
+    author_fallback = False
+
     if(name_metadata_cfgfile(cfg_scraped_text)) and not name_metadata_npe2file(repo,npe2_napari_file) :
-        console.print('Display name' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Display name' + FALLBACK_TEXT, style = 'yellow')
+        display_name_fallback = True
     if(usage_metadata_cfgfile(longdescription_scraped_text)) and not usage_metadata_descriptionfile(description_scraped_text) :
-        console.print('Usage ' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Usage ' + FALLBACK_TEXT, style = 'yellow')
+        usage_fallback = True
     if(summary_metadata_cfgfile(cfg_scraped_text)) and not summary_metadata_naparicfg(napari_cfg_scraped_text) :
-        console.print('Summary sentence' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Summary sentence' + FALLBACK_TEXT, style = 'yellow')
+        summary_sentence_fallback = True
     if (sourcecode_metadata_cfgfile(cfg_scraped_text)) and not sourcecode_metadata_naparicfg(napari_cfg_scraped_text):
-        console.print('Source Code Link ' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Source Code Link ' + FALLBACK_TEXT, style = 'yellow')
+        source_code_link_fallback = True
     if (bug_metadata_cfgfile(cfg_scraped_text)) and not bugtracker_metadata_naparicfg(napari_cfg_scraped_text):
-        console.print('Bug Tracker Link ' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Bug Tracker Link ' + FALLBACK_TEXT, style = 'yellow')
+        bug_tracker_link_fallback = True
     if (usersupport_metadata_cfgfile(cfg_scraped_text)) and not usersupport_metadata_naparicfg(napari_cfg_scraped_text):
-        console.print('User Support link' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('User Support link' + FALLBACK_TEXT, style = 'yellow')
+        user_support_link_fallback = True
     if (video_metadata_cfgfile(longdescription_scraped_text)) and not video_metadata_descriptionfile(description_scraped_text):
-        console.print('Video ' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Video ' + FALLBACK_TEXT, style = 'yellow')
+        screenshot_or_video_fallback = True
     if(intro_metadata_cfgfile(longdescription_scraped_text)) and not intro_metadata_descriptionfile(description_scraped_text) :
-        console.print('Intro Paragraph' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Intro Paragraph' + FALLBACK_TEXT, style = 'yellow')
+        intro_paragraph_fallback = True
     if (screenshot_metadata_cfgfile(longdescription_scraped_text)) and not screenshot_metadata_descriptionfile(description_scraped_text):
-        console.print('Screenshot' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Screenshot' + FALLBACK_TEXT, style = 'yellow')
+        screenshot_or_video_fallback = True
     if (author_metadata_cfgfile(cfg_scraped_text)) and not author_metadata_naparicfg(napari_cfg_scraped_text):
-        console.print('Author Name' + FALLBACK_TEXT, style = 'yellow')
+        # console.print('Author Name' + FALLBACK_TEXT, style = 'yellow')
+        author_fallback = True
+
+    fallback_check_array = [display_name_fallback,
+                            summary_sentence_fallback,
+                            source_code_link_fallback,
+                            author_fallback,
+                            screenshot_or_video_fallback,
+                            intro_paragraph_fallback,
+                            usage_fallback,
+                            user_support_link_fallback,
+                            bug_tracker_link_fallback,
+                            ]
 
     checks_array = [display_name_check,
                    summary_sentence_check,
@@ -150,13 +181,31 @@ def create_checklist(repo):
                         ' Usage ',
                         ' User Support link ',
                         ' Bug Tracker link ',
-                        ' Citation ',
+                        ' Citation ',]
 
-                            ]
+    main_file_array = ['npe2 file: napari.yaml',
+                       'napari-hub/config.yml',
+                       'napari-hub/config.yml',
+                       'napari-hub/config.yml',
+                       'napari-hub/description.md',
+                       'napari-hub/description.md',
+                       'napari-hub/description.md',
+                       'napari-hub/config.yml',
+                       'napari-hub/config.yml',
+                       'CITATION.CFF',]
 
+
+    for idx, i in enumerate(fallback_check_array):
+        if i == True:
+            console.print('\n-' + checks_array_text[idx] + FALLBACK_TEXT, style = 'yellow')
+            console.print('  Recommended file location - '+ main_file_array[idx], style = 'white')
+            
     for idx,i in enumerate(checks_array):
         if i == non_checked_element:
             console.print('\n'+non_checked_element + checks_array_text[idx] + NOT_FOUND_TEXT, style = 'yellow')
+            console.print('  Recommended file location - '+ main_file_array[idx], style = 'white')
+
+    
 
 
 
