@@ -82,3 +82,24 @@ By adding a screenshot in the description.md and a CITATION.CFF file
 - Should I add the CITATION.CFF to the checklist?
 - If there's a metadata field found but in the fallback file, should I suggest the main one? or only if nothing is found?
 
+Oct 24
+--
+
+- Citation added as Optional in the Documentation Checklist
+
+![image](https://user-images.githubusercontent.com/99416933/197519145-713081b1-fde0-443f-8697-b946b33baaf0.png)
+
+- Created suggestions for when no metadata is found
+
+![image](https://user-images.githubusercontent.com/99416933/197519203-79d0475e-71ac-48b2-acfe-adedfe504534.png)
+
+- Created suggestions for when metadata is only found in the fallback file
+
+![image](https://user-images.githubusercontent.com/99416933/197519242-30486f76-dbc2-4ab9-9376-df8d97ea5f8f.png)
+
+
+
+Full Example:
+
+![image](https://user-images.githubusercontent.com/99416933/197519294-60cee224-d819-4a65-b41b-83f7f29c2dbb.png)
+
