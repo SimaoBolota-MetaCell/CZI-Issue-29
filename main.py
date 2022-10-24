@@ -24,8 +24,8 @@ def create_checklist(repo):
 
     checked_element = u'\u2713'
     non_checked_element = u'\u2717'
-    checked_style = 'green'
-    unchecked_style = 'red'
+    checked_style = 'bold green'
+    unchecked_style = 'bold red'
 
     #Initializations
     display_name_check = non_checked_element
@@ -91,7 +91,7 @@ def create_checklist(repo):
    
     
     console = Console()
-    console.print("\n[ Napari Plugin - Documentation Checklist ]\n", style = 'blue')
+    console.print("\n\nNapari Plugin - Documentation Checklist\n", style = 'bold underline2 blue')
     console.print(author_name_check + ' Author name ', style = author_name_column_style)
     console.print(summary_sentence_check + ' Summary Sentence ', style = summary_sentence_column_style)
     console.print(intro_paragraph_check + ' Intro Paragraph ', style = intro_paragraph_column_style)
@@ -101,7 +101,7 @@ def create_checklist(repo):
     console.print(support_channel_check + ' Support Channel Link ', style = support_channel_column_style)
     console.print(issue_submission_check + ' Issue Submission Link ', style = issue_submission_column_style)
     console.print(display_name_check + ' Display Name ', style = display_name_column_style)
-    console.print('\n[ OPTIONAL ] ')
+    console.print('\nOPTIONAL ', style = 'underline')
     console.print(citation_check + ' Citation ', style = citation_column_style)
     console.print('\n')
 
@@ -212,3 +212,4 @@ def create_checklist(repo):
     return 
 
 create_checklist(repo_path)
+

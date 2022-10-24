@@ -43,7 +43,7 @@ repo_path = '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Issue29/CZI-Issue-29'
         
 def cfg_soup(path):
     console = Console()
-    console.print('Checking setup.cfg file...', style = 'yellow')
+    console.print('Checking setup.cfg file...')
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
     SET_UP_CFG_LINK = git_repo_link + '/blob/%s/setup.cfg'%(git_base_branch)
 
@@ -124,7 +124,7 @@ def usersupport_metadata_cfgfile(scraped_text):
 
 def long_description_file(scraped_text, repo_link):
     console = Console()
-    console.print('Checking setup.cfg long_description associated file....', style = 'yellow')
+    console.print('Checking setup.cfg long_description associated file....')
 
     long_description_data = re.findall(PYCFG_LONG_DESCRIPTION_PATTERN, scraped_text, flags=re.DOTALL)
 

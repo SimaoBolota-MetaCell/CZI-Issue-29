@@ -33,7 +33,7 @@ def check_for_file( path: str, name: str) -> bool:
 
 def npe2_file_location(repo_path):
     console = Console()
-    console.print('Checking npe2 file location...', style = 'yellow')
+    console.print('Checking npe2 file location...')
 
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(repo_path)
 

@@ -5,7 +5,7 @@ from rich.console import Console
 
 def description_soup(path):
     console = Console()
-    console.print('Checking napari-hub/description.md file...', style = 'yellow')
+    console.print('Checking napari-hub/description.md file...')
 
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
     NAPARI_DESCRIPTION_LINK = git_repo_link + '/blob/%s/.napari-hub/DESCRIPTION.md'%(git_base_branch)

@@ -11,7 +11,7 @@ from rich.console import Console
 
 def check_for_citation( path: str, name: str) -> bool:
     console = Console()
-    console.print('Checking citation file...', style = 'yellow')
+    console.print('Checking citation file...')
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
     try:
             r = requests.get(git_repo_link)

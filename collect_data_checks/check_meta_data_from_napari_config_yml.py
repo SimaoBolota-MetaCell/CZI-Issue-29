@@ -19,7 +19,7 @@ NAPARI_CFG_USER_SUPPORT_PATTERN = '(?:User\sSupport\:\s)(.*?)(?=\s)'
         
 def napari_cfgfile_soup(path):
     console = Console()
-    console.print('Checking napari-hub/config.yml file...', style = 'yellow')
+    console.print('Checking napari-hub/config.yml file...')
     
     git_repo_username,git_repo_name, git_repo_link,git_base_branch = getGitInfo(path)
 
